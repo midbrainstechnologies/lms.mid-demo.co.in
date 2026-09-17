@@ -67,9 +67,9 @@
                                                 <label>Mark Lead As</label>
                                                 <select name="status" required class="form-control select2" style="width: 100%;">
                                                     <option value="">Select</option>
-                                                    <option value="t_complete">Approved</option>
-                                                    <option value="a_process">Processed</option>
-                                                    <option value="a_complete">Completeed</option>
+                                                    <option value="closed">Closed</option>
+                                                    <option value="a_process">Under Process</option>
+                                                    <option value="a_complete">Completed</option>
                                                 </select>
                                             </div>
                                         </div>

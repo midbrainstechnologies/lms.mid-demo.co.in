@@ -87,61 +87,35 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{url('/tele-caller/list/new')}}" class="nav-link">
-              <i class="fa fa-circle-o nav-icon"></i>
-              <p>New Leads</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('/tele-caller/list/t_approve')}}" class="nav-link">
-              <i class="fa fa-circle-o nav-icon"></i>
-              <p>Approve Leads</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('/tele-caller/list/t_process')}}" class="nav-link">
-              <i class="fa fa-circle-o nav-icon"></i>
-              <p>Process Leads</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('/tele-caller/list/t_hot')}}" class="nav-link">
+            <a href="{{url('/tele-caller/list/hot')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
               <p>Hot Leads</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/tele-caller/list/t_complete')}}" class="nav-link">
+            <a href="{{url('/tele-caller/list/warm')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
-              <p>Complete Leads</p>
+              <p>Warm Leads</p>
             </a>
           </li>
           <li class="nav-item">
-                <a href="{{url('/tele-caller/list/callback')}}" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>Callback Leads</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{url('/tele-caller/list/ringing')}}" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>Ringing Leads</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{url('/tele-caller/list/switchoff')}}" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>Switch Off Leads</p>
-                </a>
-            </li>
-          <li class="nav-item">
-            <a href="{{url('/tele-caller/list/t_delete')}}" class="nav-link">
+            <a href="{{url('/tele-caller/list/cold')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
-              <p>Deleted Leads</p>
+              <p>Cold Leads</p>
             </a>
           </li>
-
-
+          <li class="nav-item">
+            <a href="{{url('/tele-caller/list/dead')}}" class="nav-link">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>Dead Leads</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('/tele-caller/list/closed')}}" class="nav-link">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>Closed Leads</p>
+            </a>
+          </li>
         </ul>
       </li>
 

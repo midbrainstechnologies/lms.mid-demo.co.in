@@ -65,61 +65,35 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('/admin/list/new') }}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>New Leads</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/list/t_approve') }}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Approve Leads</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/list/t_process') }}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Process Leads</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/list/t_hot') }}" class="nav-link">
+                    <a href="{{ url('/admin/list/hot') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
                         <p>Hot Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/admin/list/t_complete') }}" class="nav-link">
+                    <a href="{{ url('/admin/list/warm') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Complete Leads</p>
+                        <p>Warm Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('/admin/list/callback')}}" class="nav-link">
+                    <a href="{{ url('/admin/list/cold') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Callback Leads</p>
+                        <p>Cold Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('/admin/list/ringing')}}" class="nav-link">
+                    <a href="{{ url('/admin/list/dead') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Ringing Leads</p>
+                        <p>Dead Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('/admin/list/switchoff')}}" class="nav-link">
+                    <a href="{{ url('/admin/list/closed') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Switch Off Leads</p>
+                        <p>Closed Leads</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('/admin/list/t_delete') }}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Deleted Leads</p>
-                    </a>
-                </li>
-
-
             </ul>
         </li>
 
@@ -135,9 +109,9 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('/admin/mylist/t_complete') }}" class="nav-link">
+                    <a href="{{ url('/admin/mylist/closed') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Approved Leads</p>
+                        <p>Closed Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">

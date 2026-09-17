@@ -30,8 +30,8 @@ class LeadsBillingController extends Controller
             $mylead = LeadMS::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('is_captured', '1');
             if (!empty($type)) {
                 $mylead = $mylead->where('lead_type', $type);
-                if($type == "t_complete"){
-                    $l_type = 'Approved ';
+                if($type == "closed"){
+                    $l_type = 'Closed ';
                 }else if($type == "a_process"){
                     $l_type = 'Under Process ';
                 }else if($type == "a_complete"){
@@ -181,7 +181,7 @@ class LeadsBillingController extends Controller
 
         $validate = $request->validate([
             'leadid'                        => 'required',
-            'status'                        => 'required',
+            'status'                        => 'required|in:closed,a_process,a_complete',
             'remarks'                       => 'required',
             'is_schedule'                   => 'required',
             'schedule'                      => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
@@ -192,10 +192,10 @@ class LeadsBillingController extends Controller
             date_default_timezone_set("Asia/Kolkata");
             $type = $request->status;
             $l_type = '';
-            if($type == "t_complete"){
-                $l_type = 'Approved ';
+            if($type == "closed"){
+                $l_type = 'Closed ';
             }else if($type == "a_process"){
-                $l_type = 'Proccesed ';
+                $l_type = 'Under Process ';
             }else if($type == "a_complete"){
                 $l_type = 'Completed ';
             }

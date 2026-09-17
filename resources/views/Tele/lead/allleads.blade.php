@@ -10,6 +10,7 @@
         tr.lead-warm > td { background-color: #fff3cd !important; }
         tr.lead-cold > td { background-color: #d1ecf1 !important; }
         tr.lead-dead > td { background-color: #e2e3e5 !important; }
+        tr.lead-closed > td { background-color: #d4edda !important; }
     </style>
 @endsection
 @section('body')
@@ -60,6 +61,8 @@
                 <span class="badge" style="background-color:#d1ecf1;color:#0c5460">&nbsp;&nbsp;</span> Cold
                 &nbsp;
                 <span class="badge" style="background-color:#e2e3e5;color:#383d41">&nbsp;&nbsp;</span> Dead
+                &nbsp;
+                <span class="badge" style="background-color:#d4edda;color:#155724">&nbsp;&nbsp;</span> Closed
 
             </div>
         </div>
@@ -117,8 +120,8 @@
                         </thead>
                         <tbody> <?php $srno = 0; ?>
                             @foreach ($leads as $list)
-                                <?php $temperature = $temperatures[$list['id']] ?? 'none'; ?>
-                                <tr class="@if($temperature != 'none') lead-{{ $temperature }} @endif">
+                                <?php $temperature = $temperatures[$list['id']] ?? 'new'; ?>
+                                <tr class="@if($temperature != 'new') lead-{{ $temperature }} @endif">
                                     <td><?= ++$srno ?></td>
 
 
@@ -144,11 +147,12 @@
                                             @csrf
                                             <input type="hidden" name="lead_id" value="{{ $list['id'] }}">
                                             <select name="temperature" class="form-control form-control-sm" onchange="this.form.submit()" style="min-width: 110px">
-                                                <option value="" disabled {{ $temperature == 'none' ? 'selected' : '' }}>Not Set</option>
+                                                <option value="" disabled {{ $temperature == 'new' ? 'selected' : '' }}>Not Set</option>
                                                 <option value="hot" {{ $temperature == 'hot' ? 'selected' : '' }}>Hot</option>
                                                 <option value="warm" {{ $temperature == 'warm' ? 'selected' : '' }}>Warm</option>
                                                 <option value="cold" {{ $temperature == 'cold' ? 'selected' : '' }}>Cold</option>
                                                 <option value="dead" {{ $temperature == 'dead' ? 'selected' : '' }}>Dead</option>
+                                                <option value="closed" {{ $temperature == 'closed' ? 'selected' : '' }}>Closed</option>
                                             </select>
                                         </form>
                                     </td>

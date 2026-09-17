@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tele;
 
 use App\Http\Controllers\Controller;
 use App\Models\CategoryMaster;
+use App\Models\LeadMarking;
 use App\Models\LeadMS;
 use App\Models\Leads;
 use App\Models\LeadStatus;
@@ -13,20 +14,6 @@ use Illuminate\Support\Facades\Crypt;
 
 class LeadsController extends Controller
 {
-    const TEMPERATURE_LABELS = [
-        'hot'  => 'Hot',
-        'warm' => 'Warm',
-        'cold' => 'Cold',
-        'dead' => 'Dead',
-    ];
-
-    const TEMPERATURE_BGCOLORS = [
-        'hot'  => 'red',
-        'warm' => 'orange',
-        'cold' => 'aqua',
-        'dead' => 'gray',
-    ];
-
     public function allLeads(Request $request)
     {
         try {
@@ -39,13 +26,13 @@ class LeadsController extends Controller
                 'author'        => env('COMPANYNAME'),
             ];
 
-            $mylead = LeadMS::select('lead_id', 'lead_temperature')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->get();
+            $mylead = LeadMS::select('lead_id', 'lead_type')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->get();
 
             $myleads = array();
             $temperatures = array();
             foreach ($mylead as $key) {
                 $myleads[] = $key['lead_id'];
-                $temperatures[$key['lead_id']] = $key['lead_temperature'];
+                $temperatures[$key['lead_id']] = $key['lead_type'];
             }
 
             $leads = Leads::select()->where('status', '1')->where('is_delete', '0')->whereIn('id', $myleads);
@@ -77,19 +64,19 @@ class LeadsController extends Controller
     {
         $request->validate([
             'lead_id'     => 'required',
-            'temperature' => 'required|in:hot,warm,cold,dead',
+            'temperature' => 'required|in:hot,warm,cold,dead,closed',
         ]);
 
         try {
             $update = LeadMS::where('lead_id', $request->lead_id)->where('user_id', Auth::user()->id)->where('is_delete', '0')->where('status', '1')->update([
-                'lead_temperature' => $request->temperature,
+                'lead_type' => $request->temperature,
             ]);
 
             if (!$update) {
                 return redirect()->back()->with('error', "Server Error");
             }
 
-            $label = self::TEMPERATURE_LABELS[$request->temperature];
+            $label = LeadMarking::LABELS[$request->temperature];
 
             LeadStatus::create([
                 'business_id' => Auth::user()->business_id,
@@ -97,7 +84,7 @@ class LeadsController extends Controller
                 'lead_id'     => $request->lead_id,
                 'user_id'     => Auth::user()->id,
                 'icon'        => 'fa-thermometer-half',
-                'bgcolor'     => self::TEMPERATURE_BGCOLORS[$request->temperature],
+                'bgcolor'     => LeadMarking::BGCOLORS[$request->temperature],
                 'remarks'     => "Lead Marked <b>$label</b> by " . Auth::user()->name,
                 'created_at'  => now(),
                 'updated_at'  => now(),
