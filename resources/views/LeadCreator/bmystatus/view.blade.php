@@ -100,12 +100,6 @@
                                                 <input class="form-control" type="date" name="schedule" >
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Remarks</label>
-                                                <input class="form-control" type="text" name="schedule_remarks" >
-                                            </div>
-                                        </div>
 
                                     </div>
 
@@ -281,10 +275,8 @@
         $('select[name="is_schedule"]').on('change',function(){
             if($('select[name="is_schedule"]').val() == "yes"){
                 $('input[name="schedule"]').prop('required',true);
-                $('input[name="schedule_remarks"]').prop('required',true);
             }else{
                 $('input[name="schedule"]').prop('required',false);
-                $('input[name="schedule_remarks"]').prop('required',false);
             }
         });
 

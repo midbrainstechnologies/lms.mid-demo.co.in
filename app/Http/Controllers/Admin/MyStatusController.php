@@ -189,7 +189,6 @@ class MyStatusController extends Controller
             'remarks'                       => 'required',
             'is_schedule'                   => 'required',
             'schedule'                      => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
-            'schedule_remarks'              => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
         ]);
 
         try{
