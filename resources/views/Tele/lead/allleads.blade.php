@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="{{ url('asset_data/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <style>
         :root {
-            --status-hot-bg: #fef2f2;    --status-hot-text: #b91c1c;    --status-hot-accent: #ef4444;
-            --status-warm-bg: #fffbeb;   --status-warm-text: #92400e;   --status-warm-accent: #f59e0b;
-            --status-cold-bg: #eff6ff;   --status-cold-text: #1d4ed8;   --status-cold-accent: #3b82f6;
-            --status-dead-bg: #f3f4f6;   --status-dead-text: #4b5563;   --status-dead-accent: #9ca3af;
-            --status-closed-bg: #ecfdf5; --status-closed-text: #047857; --status-closed-accent: #10b981;
+            --status-hot-bg: #fca5a5;    --status-hot-text: #7f1d1d;    --status-hot-accent: #dc2626;
+            --status-warm-bg: #fcd34d;   --status-warm-text: #78350f;   --status-warm-accent: #d97706;
+            --status-cold-bg: #93c5fd;   --status-cold-text: #1e3a8a;   --status-cold-accent: #2563eb;
+            --status-dead-bg: #d1d5db;   --status-dead-text: #1f2937;   --status-dead-accent: #6b7280;
+            --status-closed-bg: #6ee7b7; --status-closed-text: #064e3b; --status-closed-accent: #059669;
         }
 
         .leads-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
@@ -77,14 +77,14 @@
             background: #f3f4f6; padding: 2px 8px; border-radius: 6px;
         }
         .lead-company { font-weight: 600; color: #111827; }
-        .lead-contact { color: #6b7280; font-size: 12.5px; }
-        .lead-contact i { width: 14px; color: #9ca3af; }
+        .lead-contact { color: #374151; font-size: 12.5px; }
+        .lead-contact i { width: 14px; color: #4b5563; }
 
         .followup-note {
             display: block; max-width: 190px; white-space: nowrap;
-            overflow: hidden; text-overflow: ellipsis; color: #374151;
+            overflow: hidden; text-overflow: ellipsis; color: #1f2937;
         }
-        .followup-note.empty { color: #b0b4bb; font-style: italic; }
+        .followup-note.empty { color: #4b5563; font-style: italic; }
 
         .callback-badge {
             display: inline-flex; align-items: center; gap: 5px;
