@@ -1,0 +1,161 @@
+@extends('LeadCreator.main')
+@section('headerfile')
+@endsection
+@section('body')
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"><?= !empty($seo['title']) ? $seo['title'] : 'Admin Dashboard' ?> </h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ url('/tele-caller') }}">Home</a></li>
+                            <li class="breadcrumb-item active">
+                                <?= !empty($seo['title']) ? $seo['title'] : 'Admin Dashboard' ?></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row clearfix g-3">
+                    <div class="col-sm-12">
+                        @if (Session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;</button>
+                                <h5><i class="fa fa-times"></i> Uff!</h5>
+                                {{ Session()->get('error') }}
+                            </div>
+                        @endif
+                        @if (Session()->has('success'))
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;</button>
+                                <h5><i class="fa fa-check"></i> Success!</h5>
+                                {{ Session()->get('success') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- jquery validation -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title"><?= !empty($seo['title']) ? ' Add ' . $seo['title'] : 'Admin Dashboard' ?></h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form action="" method="POST">
+                                @csrf
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        <label for="master_type">Select Master's</label>
+                                         <select id="master_type"  required name="master_type" class="form-control select2" style="width: 100%;">
+                                            <option value="">Select Master's</option>
+                                            @foreach ($categorymaster as $list)
+                                                <option value="{{$list['id']}}">{{$list['name']}}</option>
+                                            @endforeach
+                                            <option value="other">Other</option>
+
+                                        </select>
+                                        <input  type="hidden" name="master_type_name" class="form-control" id="master_type_name" placeholder="Enter Master Name" >
+                                        @error('master_type')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input required type="text" name="name" class="form-control"
+                                            id="name" placeholder="Enter Name" >
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile No.</label>
+                                        <input required type="number" name="mobile" class="form-control"
+                                            id="mobile" placeholder="Enter Mobile No." >
+                                        @error('mobile')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input  type="email" name="email" class="form-control"
+                                            id="email" placeholder="Enter Email" >
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">Company Name</label>
+                                        <input  type="text" name="company" class="form-control"
+                                            id="company" placeholder="Enter Company Name"  >
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="source">Lead Source</label>
+                                        <input  type="text" name="source" class="form-control"
+                                            id="source" placeholder="Enter Source" >
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input  type="text" name="title" class="form-control"
+                                            id="title" placeholder="Enter Title" >
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="description" class="form-control"
+                                            id="description" placeholder="Enter description" ></textarea>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Add Lead</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+@endsection
+@section('footerfile')
+    <script>
+        $(function() {
+            $('#master_type').on('change',function(){
+
+                if($(this).val() == "other"){
+                    $("#master_type_name").prop('required',true);
+                    $("#master_type_name").attr('type','text');
+
+                }else{
+                    $("#master_type_name").prop('required',false);
+                    $("#master_type_name").attr('type','hidden');
+
+                }
+            })
+        });
+    </script>
+@endsection
