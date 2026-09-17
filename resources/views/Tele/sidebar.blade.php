@@ -52,6 +52,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{url('/tele-caller/all-leads?callback=yes')}}" class="nav-link">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>Callback Leads</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{url('/tele-caller/transferred-list')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
               <p>Transferred Leads</p>

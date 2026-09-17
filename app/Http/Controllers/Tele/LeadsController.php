@@ -7,6 +7,7 @@ use App\Models\CategoryMaster;
 use App\Models\LeadMarking;
 use App\Models\LeadMS;
 use App\Models\Leads;
+use App\Models\LeadRemainder;
 use App\Models\LeadStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,12 @@ class LeadsController extends Controller
             foreach ($mylead as $key) {
                 $myleads[] = $key['lead_id'];
                 $temperatures[$key['lead_id']] = $key['lead_type'];
+            }
+
+            // Callback filter: leads with an active (not deleted) scheduled follow-up reminder.
+            if ($request->callback == 'yes') {
+                $callbackLeadIds = LeadRemainder::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->pluck('lead_id')->toArray();
+                $myleads = array_intersect($myleads, $callbackLeadIds);
             }
 
             $leads = Leads::select()->where('status', '1')->where('is_delete', '0')->whereIn('id', $myleads);

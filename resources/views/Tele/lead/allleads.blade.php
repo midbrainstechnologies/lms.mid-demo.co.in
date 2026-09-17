@@ -76,19 +76,28 @@
         <form method="get">
             <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="date_from">Date from</label>
-                        <input value="<?= !empty($_GET['date_from']) ? $_GET['date_from'] : '' ?>" required type="date" name="date_from" class="form-control" id="date_from" placeholder="Date From">
+                        <input value="<?= !empty($_GET['date_from']) ? $_GET['date_from'] : '' ?>" type="date" name="date_from" class="form-control" id="date_from" placeholder="Date From">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="date_to">Date To</label>
-                        <input value="<?= !empty($_GET['date_to']) ? $_GET['date_to'] : '' ?>" required type="date" name="date_to" class="form-control" id="date_to" placeholder="Date To">
+                        <input value="<?= !empty($_GET['date_to']) ? $_GET['date_to'] : '' ?>" type="date" name="date_to" class="form-control" id="date_to" placeholder="Date To">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="callback">Callback</label>
+                        <select name="callback" id="callback" class="form-control" onchange="this.form.submit()">
+                            <option value="">All Leads</option>
+                            <option value="yes" <?= (!empty($_GET['callback']) && $_GET['callback'] == 'yes') ? 'selected' : '' ?>>Callback Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <button style="margin-top: 32px" type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
