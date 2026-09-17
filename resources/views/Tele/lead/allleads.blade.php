@@ -108,6 +108,7 @@
                                 <th>Email</th>
                                 <th>Title</th>
                                 <th>Date</th>
+                                <th>Recent Follow-ups</th>
                                 <th>Lead Status</th>
                                 <th>Action</th>
                             </tr>
@@ -132,6 +133,18 @@
                                     <td><?= $list['email'] ?></td>
                                     <td><?= $list['title'] ?></td>
                                     <td><?= date('M d,Y', strtotime($list['created_at'])) ?></td>
+                                    <td style="min-width: 220px">
+                                        <?php $leadfollowups = $followups[$list['id']] ?? []; ?>
+                                        @if(count($leadfollowups))
+                                            <ul class="pl-3 mb-0" style="font-size: 12px">
+                                                @foreach ($leadfollowups as $f)
+                                                    <li><strong>{{ date('M d, h:i A', strtotime($f['created_at'])) }}:</strong> {{ strip_tags($f['remarks']) }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <span class="text-muted">No follow-ups yet</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <form method="POST" action="{{ url('/tele-caller/all-leads/mark-temperature') }}">
                                             @csrf

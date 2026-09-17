@@ -54,7 +54,20 @@ class LeadsController extends Controller
             }
             $leads = $leads->orderby('id', 'desc')->get();
 
-            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures'));
+            // Last 3 follow-up remarks per lead, most recent first.
+            $statuses = LeadStatus::select('lead_id', 'remarks', 'created_at')->where('status', '1')->where('is_delete', '0')->whereIn('lead_id', $myleads)->orderby('created_at', 'desc')->get();
+
+            $followups = array();
+            foreach ($statuses as $s) {
+                if (!isset($followups[$s['lead_id']])) {
+                    $followups[$s['lead_id']] = array();
+                }
+                if (count($followups[$s['lead_id']]) < 3) {
+                    $followups[$s['lead_id']][] = $s;
+                }
+            }
+
+            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures', 'followups'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Server Error");
         }
