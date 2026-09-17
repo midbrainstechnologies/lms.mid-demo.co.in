@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Tele;
 
 use App\Http\Controllers\Controller;
 use App\Models\CategoryMaster;
+use App\Models\LeadMarking;
 use App\Models\LeadMS;
 use App\Models\Leads;
+use App\Models\LeadRemainder;
 use App\Models\LeadStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,103 @@ use Illuminate\Support\Facades\Crypt;
 
 class LeadsController extends Controller
 {
+    public function allLeads(Request $request)
+    {
+        try {
+            $seo = [
+                'title'         =>  "All Leads",
+                'favicon'       =>  url(env('APP_FAVICON')),
+                'logo'          =>  url(env('APP_LOGO')),
+                'keyword'       => "All Leads",
+                'description'   => "All Leads",
+                'author'        => env('COMPANYNAME'),
+            ];
+
+            $mylead = LeadMS::select('lead_id', 'lead_type')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->get();
+
+            $myleads = array();
+            $temperatures = array();
+            foreach ($mylead as $key) {
+                $myleads[] = $key['lead_id'];
+                $temperatures[$key['lead_id']] = $key['lead_type'];
+            }
+
+            // Lead status filter: Hot/Warm/Cold/Dead/Closed marking.
+            if (!empty($request->status)) {
+                $myleads = array_values(array_filter($myleads, function ($id) use ($temperatures, $request) {
+                    return ($temperatures[$id] ?? 'new') === $request->status;
+                }));
+            }
+
+            // Next scheduled callback date per lead (active reminders only).
+            $callbackDates = LeadRemainder::where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->pluck('next_date', 'lead_id')->toArray();
+
+            // Callback filter: leads with an active (not deleted) scheduled follow-up reminder.
+            if ($request->callback == 'yes') {
+                $myleads = array_intersect($myleads, array_keys($callbackDates));
+            }
+
+            $leads = Leads::select()->where('status', '1')->where('is_delete', '0')->whereIn('id', $myleads);
+            if ((!empty($request->date_from)) and (!empty($request->date_to))) {
+                $leads = $leads->whereBetween('created_at', [$request->date_from . ' 00:01:01', $request->date_to . ' 23:59:59']);
+            }
+            $leads = $leads->orderby('id', 'desc')->get();
+
+            // Last 3 follow-up notes per lead (telecaller-typed only), most recent first.
+            $statuses = LeadStatus::select('lead_id', 'followup_note', 'created_at')->where('status', '1')->where('is_delete', '0')->whereNotNull('followup_note')->whereIn('lead_id', $myleads)->orderby('created_at', 'desc')->get();
+
+            $followups = array();
+            foreach ($statuses as $s) {
+                if (!isset($followups[$s['lead_id']])) {
+                    $followups[$s['lead_id']] = array();
+                }
+                if (count($followups[$s['lead_id']]) < 3) {
+                    $followups[$s['lead_id']][] = $s;
+                }
+            }
+
+            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures', 'followups', 'callbackDates'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Server Error");
+        }
+    }
+
+    public function markTemperature(Request $request)
+    {
+        $request->validate([
+            'lead_id'     => 'required',
+            'temperature' => 'required|in:hot,warm,cold,dead,closed',
+        ]);
+
+        try {
+            $update = LeadMS::where('lead_id', $request->lead_id)->where('user_id', Auth::user()->id)->where('is_delete', '0')->where('status', '1')->update([
+                'lead_type' => $request->temperature,
+            ]);
+
+            if (!$update) {
+                return redirect()->back()->with('error', "Server Error");
+            }
+
+            $label = LeadMarking::LABELS[$request->temperature];
+
+            LeadStatus::create([
+                'business_id' => Auth::user()->business_id,
+                'date'        => date('Y-m-d'),
+                'lead_id'     => $request->lead_id,
+                'user_id'     => Auth::user()->id,
+                'icon'        => 'fa-thermometer-half',
+                'bgcolor'     => LeadMarking::BGCOLORS[$request->temperature],
+                'remarks'     => "Lead Marked <b>$label</b> by " . Auth::user()->name,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            return redirect()->back()->with('success', "Lead Marked As $label");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Server Error");
+        }
+    }
+
     public function transferred(Request $request)
     {
         $seo = [
@@ -124,7 +223,9 @@ class LeadsController extends Controller
 
             $remarks = LeadStatus::select()->where('status', '1')->where('is_delete', '0')->where('lead_id', Crypt::decrypt($id))->orderBy('date', 'desc')->get();
 
-            return view('Tele.lead.view', compact('seo', 'leads', 'remarks'));
+            $callback = LeadRemainder::where('lead_id', Crypt::decrypt($id))->where('user_id', Auth::user()->id)->where('status', '1')->where('is_delete', '0')->orderBy('next_date', 'desc')->first();
+
+            return view('Tele.lead.view', compact('seo', 'leads', 'remarks', 'callback'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Server Error");
         }

@@ -87,60 +87,9 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/new') }}'">
-                        <div class="info-box bg-info">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">New Leads</span>
-                                <span class="info-box-number"> {{ $data['new_lead'] }}</span>
-
-
-
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/t_approve') }}'">
-                        <div class="info-box bg-info">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Approved Leads</span>
-                                <span class="info-box-number"> {{ $data['approve_lead'] }}</span>
-
-
-
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-
-
-
-
-
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/t_process') }}'">
-                        <div class="info-box bg-primary">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Process Leads</span>
-                                <span class="info-box-number"> {{ $data['process_lead'] }}</span>
-
-
-
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/t_hot') }}'">
-                        <div class="info-box bg-secondary">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/hot') }}'">
+                        <div class="info-box bg-danger">
+                            <span class="info-box-icon"><i class="fa fa-fire"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Hot Leads</span>
@@ -153,13 +102,13 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/t_complete') }}'">
+                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/warm') }}'">
                         <div class="info-box bg-warning">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+                            <span class="info-box-icon"><i class="fa fa-sun-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Completed Leads</span>
-                                <span class="info-box-number"> {{ $data['complete_lead'] }}</span>
+                                <span class="info-box-text">Warm Leads</span>
+                                <span class="info-box-number"> {{ $data['warm_lead'] }}</span>
 
 
 
@@ -168,40 +117,49 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/ringing') }}'">
-                        <div class="info-box bg-primary">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Ringing Leads</span>
-                                <span class="info-box-number"> {{$data['ringing']}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/callback') }}'">
-                        <div class="info-box bg-secondary">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Call Back Leads</span>
-                                <span class="info-box-number"> {{$data['callback']}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/switchoff') }}'">
-                        <div class="info-box bg-warning">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Switch Off Leads</span>
-                                <span class="info-box-number"> {{$data['switchoff']}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/t_delete') }}'">
-                        <div class="info-box bg-danger">
-                            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+
+
+
+
+
+
+                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/cold') }}'">
+                        <div class="info-box bg-info">
+                            <span class="info-box-icon"><i class="fa fa-snowflake-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Deleted Leads</span>
-                                <span class="info-box-number"> {{ $data['delete_lead'] }}</span>
+                                <span class="info-box-text">Cold Leads</span>
+                                <span class="info-box-number"> {{ $data['cold_lead'] }}</span>
+
+
+
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/dead') }}'">
+                        <div class="info-box bg-secondary">
+                            <span class="info-box-icon"><i class="fa fa-ban"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Dead Leads</span>
+                                <span class="info-box-number"> {{ $data['dead_lead'] }}</span>
+
+
+
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-12" style="cursor: pointer;" onclick="window.location='{{ url('/admin/list/closed') }}'">
+                        <div class="info-box bg-success">
+                            <span class="info-box-icon"><i class="fa fa-check-circle-o"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Closed Leads</span>
+                                <span class="info-box-number"> {{ $data['closed_lead'] }}</span>
 
 
 

@@ -108,27 +108,8 @@
                                 <tr>
                                     <td><?= ++$srno ?></td>
                                     <td><?php $leadstatus = App\Models\LeadMS::select()->where('status', '1')->where('is_delete', '0')->where('is_captured', '1')->where('user_id', Auth::user()->id)->where('lead_id', $list['id'])->first();
-                                        $type = $leadstatus['lead_type'];$l_type = '';
-                                        if($type == "new"){
-                                            $l_type = 'New ';
-                                        }else if($type == "t_approve"){
-                                            $l_type = 'Approve ';
-                                        }else if($type == "t_process"){
-                                            $l_type = 'Process ';
-                                        }else if($type == "t_hot"){
-                                            $l_type = 'Hot ';
-                                        }else if($type == "t_complete"){
-                                            $l_type = 'Complete ';
-                                        }else if($type == "callback"){
-                                            $l_type = 'Callback ';
-                                        }else if($type == "ringing"){
-                                            $l_type = 'Ringing ';
-                                        }else if($type == "switchoff"){
-                                            $l_type = 'Switch Off ';
-                                        }else if($type == "t_delete"){
-                                            $l_type = 'Delete ';
-                                        }
-                                        echo $l_type;
+                                        $type = $leadstatus['lead_type'];
+                                        echo App\Models\LeadMarking::LABELS[$type] ?? 'New';
                                     ?>
                                     </td>
                                     <td><?= 'LML' . str_pad($list['id'], 4, '0', STR_PAD_LEFT) ?></td>

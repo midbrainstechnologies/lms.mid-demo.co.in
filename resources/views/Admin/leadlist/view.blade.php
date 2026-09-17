@@ -67,14 +67,11 @@
                                                 <label>Mark Lead As</label>
                                                 <select name="status" required class="form-control select2" style="width: 100%;">
                                                     <option value="">Select</option>
-                                                    <option value="t_approve">Approve</option>
-                                                    <option value="t_process">Process</option>
-                                                    <option value="t_hot">Hot</option>
-                                                    <option value="t_complete">Complete</option>
-                                                    <option value="callback">Call Back</option>
-                                                    <option value="ringing">Ringing</option>
-                                                    <option value="switchoff">Switch Off</option>
-                                                    <option value="t_delete">Delete</option>
+                                                    <option value="hot">Hot</option>
+                                                    <option value="warm">Warm</option>
+                                                    <option value="cold">Cold</option>
+                                                    <option value="dead">Dead</option>
+                                                    <option value="closed">Closed</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -103,12 +100,6 @@
                                             <div class="form-group">
                                                 <label>Date</label>
                                                 <input class="form-control" type="date" name="schedule" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Remarks</label>
-                                                <input class="form-control" type="text" name="schedule_remarks" >
                                             </div>
                                         </div>
 
@@ -286,10 +277,8 @@
         $('select[name="is_schedule"]').on('change',function(){
             if($('select[name="is_schedule"]').val() == "yes"){
                 $('input[name="schedule"]').prop('required',true);
-                $('input[name="schedule_remarks"]').prop('required',true);
             }else{
                 $('input[name="schedule"]').prop('required',false);
-                $('input[name="schedule_remarks"]').prop('required',false);
             }
         });
 

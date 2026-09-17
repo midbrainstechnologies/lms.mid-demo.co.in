@@ -231,6 +231,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post("/update-status", "App\Http\Controllers\Tele\LeadsStatusController@leadupdate")->name('/update-status');
 
 
+        //all-leads (every lead assigned to this telecaller, with hot/warm/cold/dead marking)
+        Route::get("/all-leads", "App\Http\Controllers\Tele\LeadsController@allLeads")->name('/all-leads');
+        Route::post("/all-leads/mark-temperature", "App\Http\Controllers\Tele\LeadsController@markTemperature")->name('/all-leads/mark-temperature');
+
         //transferred-list
         Route::get("/transferred-list", "App\Http\Controllers\Tele\LeadsController@transferred")->name('/transferred-list');
         Route::post("/transferred-list", "App\Http\Controllers\Tele\LeadsController@capture")->name('/transferred-list');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LeadMarking;
 use App\Models\LeadMS;
 use App\Models\LeadRemainder;
 use App\Models\Leads;
@@ -25,29 +26,10 @@ class LeadsStatusController extends Controller
                 'description'   => "New Lead List",
                 'author'        => env('COMPANYNAME'),
             ];
-            $l_type = '';
+            $l_type = LeadMarking::LABELS[$type] ?? '';
             $mylead = LeadMS::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('is_captured', '1');
             if (!empty($type)) {
                 $mylead = $mylead->where('lead_type', $type);
-                if($type == "new"){
-                    $l_type = 'New ';
-                }else if($type == "t_approve"){
-                    $l_type = 'Approve ';
-                }else if($type == "t_process"){
-                    $l_type = 'Process ';
-                }else if($type == "t_hot"){
-                    $l_type = 'Hot ';
-                }else if($type == "t_complete"){
-                    $l_type = 'Complete ';
-                }else if($type == "callback"){
-                    $l_type = 'Call Back ';
-                }else if($type == "ringing"){
-                    $l_type = 'Ringing ';
-                }else if($type == "switchoff"){
-                    $l_type = 'Switch Off';
-                }else if($type == "t_delete"){
-                    $l_type = 'Delete ';
-                }
             }
             if(!empty($request->user)){
                 $mylead = $mylead->where('user_id',Crypt::decrypt($request->user));
@@ -75,30 +57,16 @@ class LeadsStatusController extends Controller
 
         $validate = $request->validate([
             'leadid'                        => 'required',
-            'status'                        => 'required',
+            'status'                        => 'required|in:hot,warm,cold,dead,closed',
             'remarks'                       => 'required',
             'is_schedule'                   => 'required',
             'schedule'                      => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
-            'schedule_remarks'              => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
         ]);
 
         try{
             date_default_timezone_set("Asia/Kolkata");
             $type = $request->status;
-            $l_type = '';
-            if($type == "new"){
-                $l_type = 'New ';
-            }else if($type == "t_approve"){
-                $l_type = 'Approve ';
-            }else if($type == "t_process"){
-                $l_type = 'Process ';
-            }else if($type == "t_hot"){
-                $l_type = 'Hot ';
-            }else if($type == "t_complete"){
-                $l_type = 'Complete ';
-            }else if($type == "t_delete"){
-                $l_type = 'Delete ';
-            }
+            $l_type = LeadMarking::LABELS[$type];
             //->where('user_id',Auth::user()->id)
             LeadMS::where('lead_id',$request->leadid)->where('is_delete','0')->where('status','1')->update([
                 'lead_type' => $type,
@@ -109,7 +77,7 @@ class LeadsStatusController extends Controller
                 'user_id' => Auth::user()->id,
                 'remarks' => "Lead Marked <b>$l_type</b> by remarks:- $request->remarks",
                 'icon'    => 'fa-envelope',
-                'bgcolor' => 'yellow',
+                'bgcolor' => LeadMarking::BGCOLORS[$type],
                 'date'      => date('Y-m-d'),
                 'created_at' => NOW(),
                 'updated_at' => NOW(),

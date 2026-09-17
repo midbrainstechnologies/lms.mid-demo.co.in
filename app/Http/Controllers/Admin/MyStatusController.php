@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CategoryMaster;
+use App\Models\LeadMarking;
 use App\Models\LeadMS;
 use App\Models\LeadRemainder;
 use App\Models\Leads;
@@ -30,8 +31,8 @@ class MyStatusController extends Controller
             $mylead = LeadMS::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('is_captured', '1');
             if (!empty($type)) {
                 $mylead = $mylead->where('lead_type', $type);
-                if($type == "t_complete"){
-                    $l_type = 'Approved ';
+                if($type == "closed"){
+                    $l_type = 'Closed ';
                 }else if($type == "a_process"){
                     $l_type = 'Under Process ';
                 }else if($type == "a_complete"){
@@ -179,25 +180,26 @@ class MyStatusController extends Controller
 
     public function leadupdate(Request $request){
 
+        // This single route is shared by two different dropdowns: Admin's general lead
+        // detail (Hot/Warm/Cold/Dead/Closed markings) and the My Status billing detail
+        // (Closed/Under Process/Completed), so it must accept both sets of values.
         $validate = $request->validate([
             'leadid'                        => 'required',
-            'status'                        => 'required',
+            'status'                        => 'required|in:hot,warm,cold,dead,closed,a_process,a_complete',
             'remarks'                       => 'required',
             'is_schedule'                   => 'required',
             'schedule'                      => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
-            'schedule_remarks'              => !empty($request->is_schedule)?(($request->is_schedule == "yes")?'required':''):'',
         ]);
 
         try{
             date_default_timezone_set("Asia/Kolkata");
             $type = $request->status;
-            $l_type = '';
-            if($type == "t_complete"){
-                $l_type = 'Approved ';
-            }else if($type == "a_process"){
-                $l_type = 'Proccesed ';
+            if($type == "a_process"){
+                $l_type = 'Under Process ';
             }else if($type == "a_complete"){
                 $l_type = 'Completed ';
+            }else{
+                $l_type = LeadMarking::LABELS[$type];
             }
 
             LeadMS::where('lead_id',$request->leadid)->where('is_delete','0')->where('status','1')->update([

@@ -67,9 +67,9 @@
                                                 <label>Mark Lead As</label>
                                                 <select name="status" required class="form-control select2" style="width: 100%;">
                                                     <option value="">Select</option>
-                                                    <option value="t_complete">Approved</option>
-                                                    <option value="a_process">Processed</option>
-                                                    <option value="a_complete">Completeed</option>
+                                                    <option value="closed">Closed</option>
+                                                    <option value="a_process">Under Process</option>
+                                                    <option value="a_complete">Completed</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -98,12 +98,6 @@
                                             <div class="form-group">
                                                 <label>Date</label>
                                                 <input class="form-control" type="date" name="schedule" >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Remarks</label>
-                                                <input class="form-control" type="text" name="schedule_remarks" >
                                             </div>
                                         </div>
 
@@ -281,10 +275,8 @@
         $('select[name="is_schedule"]').on('change',function(){
             if($('select[name="is_schedule"]').val() == "yes"){
                 $('input[name="schedule"]').prop('required',true);
-                $('input[name="schedule_remarks"]').prop('required',true);
             }else{
                 $('input[name="schedule"]').prop('required',false);
-                $('input[name="schedule_remarks"]').prop('required',false);
             }
         });
 

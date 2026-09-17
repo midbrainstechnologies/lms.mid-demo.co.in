@@ -129,7 +129,7 @@
                                 <tr>
                                     <td><?= ++$srno ?></td>
                                     <td><div class="btn-group"><?php
-                                        if($getsegment == "t_complete"){ ?>
+                                        if($getsegment == "closed"){ ?>
                                            <a href="{{url('/admin/mylead/editform/'.Crypt::encrypt($list['id']))}}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> </a>
                                            <a href="{{url('/admin/mylead/detail/'.Crypt::encrypt($list['id'])).'?update=remark'}}" type="button" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                         <?php }else if($getsegment == "a_process"){ ?>

@@ -58,9 +58,9 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('/admin/mylist/t_complete') }}" class="nav-link">
+                    <a href="{{ url('/admin/mylist/closed') }}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Approved Leads</p>
+                        <p>Closed Leads</p>
                     </a>
                 </li>
                 <li class="nav-item">

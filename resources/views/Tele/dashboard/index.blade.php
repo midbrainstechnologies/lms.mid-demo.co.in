@@ -395,96 +395,12 @@
                     </div>
 
 
-                    {{-- New --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-blue"
-                            onclick="window.location='{{ url('/tele-caller/list/new') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-star"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    New Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['new_lead'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Approved --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-purple"
-                            onclick="window.location='{{ url('/tele-caller/list/t_approve') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-check"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Approved Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['approve_lead'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Process --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-indigo"
-                            onclick="window.location='{{ url('/tele-caller/list/t_process') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-spinner"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Process Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['process_lead'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
                     {{-- Hot --}}
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
 
                         <div
                             class="lead-stat-card stat-rose"
-                            onclick="window.location='{{ url('/tele-caller/list/t_hot') }}'">
+                            onclick="window.location='{{ url('/tele-caller/list/hot') }}'">
 
                             <div class="lead-stat-icon">
                                 <i class="fa fa-fire"></i>
@@ -507,12 +423,96 @@
                     </div>
 
 
-                    {{-- Completed --}}
+                    {{-- Warm --}}
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+
+                        <div
+                            class="lead-stat-card stat-amber"
+                            onclick="window.location='{{ url('/tele-caller/list/warm') }}'">
+
+                            <div class="lead-stat-icon">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+
+                            <div class="lead-stat-content">
+
+                                <span class="lead-stat-label">
+                                    Warm Leads
+                                </span>
+
+                                <span class="lead-stat-number">
+                                    {{ $data['warm_lead'] }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Cold --}}
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+
+                        <div
+                            class="lead-stat-card stat-blue"
+                            onclick="window.location='{{ url('/tele-caller/list/cold') }}'">
+
+                            <div class="lead-stat-icon">
+                                <i class="fa fa-snowflake-o"></i>
+                            </div>
+
+                            <div class="lead-stat-content">
+
+                                <span class="lead-stat-label">
+                                    Cold Leads
+                                </span>
+
+                                <span class="lead-stat-number">
+                                    {{ $data['cold_lead'] }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Dead --}}
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+
+                        <div
+                            class="lead-stat-card stat-indigo"
+                            onclick="window.location='{{ url('/tele-caller/list/dead') }}'">
+
+                            <div class="lead-stat-icon">
+                                <i class="fa fa-ban"></i>
+                            </div>
+
+                            <div class="lead-stat-content">
+
+                                <span class="lead-stat-label">
+                                    Dead Leads
+                                </span>
+
+                                <span class="lead-stat-number">
+                                    {{ $data['dead_lead'] }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Closed --}}
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
 
                         <div
                             class="lead-stat-card stat-emerald"
-                            onclick="window.location='{{ url('/tele-caller/list/t_complete') }}'">
+                            onclick="window.location='{{ url('/tele-caller/list/closed') }}'">
 
                             <div class="lead-stat-icon">
                                 <i class="fa fa-check-circle-o"></i>
@@ -521,140 +521,11 @@
                             <div class="lead-stat-content">
 
                                 <span class="lead-stat-label">
-                                    Completed Leads
+                                    Closed Leads
                                 </span>
 
                                 <span class="lead-stat-number">
-                                    {{ $data['complete_lead'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {{-- ================================
-                CALL STATUS
-            ================================= --}}
-
-            <div class="dashboard-section">
-
-                <div class="dashboard-section-title">
-                    <span></span>
-                    Call Status
-                </div>
-
-                <div class="row">
-
-                    {{-- Ringing --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-blue"
-                            onclick="window.location='{{ url('/tele-caller/list/ringing') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Ringing Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['ringing'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Callback --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-purple"
-                            onclick="window.location='{{ url('/tele-caller/list/callback') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-phone-square"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Call Back Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['callback'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Switch Off --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-amber"
-                            onclick="window.location='{{ url('/tele-caller/list/switchoff') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-power-off"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Switch Off Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['switchoff'] }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Deleted --}}
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-
-                        <div
-                            class="lead-stat-card stat-rose"
-                            onclick="window.location='{{ url('/tele-caller/list/t_delete') }}'">
-
-                            <div class="lead-stat-icon">
-                                <i class="fa fa-trash"></i>
-                            </div>
-
-                            <div class="lead-stat-content">
-
-                                <span class="lead-stat-label">
-                                    Deleted Leads
-                                </span>
-
-                                <span class="lead-stat-number">
-                                    {{ $data['delete_lead'] }}
+                                    {{ $data['closed_lead'] }}
                                 </span>
 
                             </div>
