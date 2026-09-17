@@ -140,9 +140,9 @@
                                     <td><?= $list['email'] ?></td>
                                     <td><?= date('M d,Y', strtotime($list['created_at'])) ?></td>
                                     <?php $leadfollowups = $followups[$list['id']] ?? []; ?>
-                                    <td>{{ isset($leadfollowups[0]) ? strip_tags($leadfollowups[0]['remarks']) : '-' }}</td>
-                                    <td>{{ isset($leadfollowups[1]) ? strip_tags($leadfollowups[1]['remarks']) : '-' }}</td>
-                                    <td>{{ isset($leadfollowups[2]) ? strip_tags($leadfollowups[2]['remarks']) : '-' }}</td>
+                                    <td>{{ $leadfollowups[0]['followup_note'] ?? '-' }}</td>
+                                    <td>{{ $leadfollowups[1]['followup_note'] ?? '-' }}</td>
+                                    <td>{{ $leadfollowups[2]['followup_note'] ?? '-' }}</td>
                                     <td>
                                         <form method="POST" action="{{ url('/tele-caller/all-leads/mark-temperature') }}">
                                             @csrf

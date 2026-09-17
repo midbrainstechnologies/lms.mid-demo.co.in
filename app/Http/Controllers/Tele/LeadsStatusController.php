@@ -71,6 +71,7 @@ class LeadsStatusController extends Controller
                 'lead_id' => $request->leadid,
                 'user_id' => Auth::user()->id,
                 'remarks' => "Lead Marked <b>$l_type</b> by remarks:- $request->remarks",
+                'followup_note' => $request->remarks,
                 'icon'    => 'fa-envelope',
                 'bgcolor' => LeadMarking::BGCOLORS[$type],
                 'date'      => date('Y-m-d'),

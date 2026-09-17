@@ -48,8 +48,8 @@ class LeadsController extends Controller
             }
             $leads = $leads->orderby('id', 'desc')->get();
 
-            // Last 3 follow-up remarks per lead, most recent first.
-            $statuses = LeadStatus::select('lead_id', 'remarks', 'created_at')->where('status', '1')->where('is_delete', '0')->whereIn('lead_id', $myleads)->orderby('created_at', 'desc')->get();
+            // Last 3 follow-up notes per lead (telecaller-typed only), most recent first.
+            $statuses = LeadStatus::select('lead_id', 'followup_note', 'created_at')->where('status', '1')->where('is_delete', '0')->whereNotNull('followup_note')->whereIn('lead_id', $myleads)->orderby('created_at', 'desc')->get();
 
             $followups = array();
             foreach ($statuses as $s) {
