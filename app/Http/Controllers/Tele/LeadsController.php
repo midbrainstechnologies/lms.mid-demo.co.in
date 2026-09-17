@@ -36,6 +36,13 @@ class LeadsController extends Controller
                 $temperatures[$key['lead_id']] = $key['lead_type'];
             }
 
+            // Lead status filter: Hot/Warm/Cold/Dead/Closed marking.
+            if (!empty($request->status)) {
+                $myleads = array_values(array_filter($myleads, function ($id) use ($temperatures, $request) {
+                    return ($temperatures[$id] ?? 'new') === $request->status;
+                }));
+            }
+
             // Callback filter: leads with an active (not deleted) scheduled follow-up reminder.
             if ($request->callback == 'yes') {
                 $callbackLeadIds = LeadRemainder::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->pluck('lead_id')->toArray();
