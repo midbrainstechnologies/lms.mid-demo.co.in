@@ -105,11 +105,9 @@
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>ID</th>
-                                <th>Category</th>
-                                <th>Name</th>
+                                <th>Company Name</th>
                                 <th>Mobile</th>
                                 <th>Email</th>
-                                <th>Title</th>
                                 <th>Date</th>
                                 <th>Follow-up 1</th>
                                 <th>Follow-up 2</th>
@@ -126,17 +124,11 @@
 
 
                                     <td><?= 'LML' . str_pad($list['id'], 4, '0', STR_PAD_LEFT) ?></td>
-                                    <td><?php if($list['masterid']!="0"){ $cate_master = App\Models\CategoryMaster::select()
-                                        ->where('id', $list['masterid'])
-                                        ->first();
-                                        echo $cate_master['name']; } ?>
-                                    </td>
                                     <td>
-                                        <?= $list['name'] ?>
+                                        <?= $list['company'] ?>
                                     </td>
                                     <td><?= $list['mobile'] ?></td>
                                     <td><?= $list['email'] ?></td>
-                                    <td><?= $list['title'] ?></td>
                                     <td><?= date('M d,Y', strtotime($list['created_at'])) ?></td>
                                     <?php $leadfollowups = $followups[$list['id']] ?? []; ?>
                                     <td>{{ isset($leadfollowups[0]) ? strip_tags($leadfollowups[0]['remarks']) : '-' }}</td>
@@ -160,7 +152,7 @@
 
                                         <div class="btn-group">
 
-                                            <a href="{{url('/tele-caller/lead-detail/'.Crypt::encrypt($list['id']))}}" type="button" class="btn btn-success"><i class="fa fa-eye"></i></a>
+                                            <a href="{{url('/tele-caller/lead-detail/'.Crypt::encrypt($list['id'])).'?update=remark'}}" type="button" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                             <a href="{{url('/tele-caller/lead-edit/'.Crypt::encrypt($list['id']))}}" type="button" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                         </div>
 
