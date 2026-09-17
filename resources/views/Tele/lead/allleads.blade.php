@@ -55,7 +55,7 @@
             white-space: nowrap; vertical-align: middle; padding: 12px 14px;
         }
         #example1.table tbody td {
-            vertical-align: middle; padding: 10px 14px;
+            vertical-align: middle; padding: 10px 14px; white-space: nowrap;
             border-top: 1px solid #f1f2f4; border-bottom: none;
         }
         #example1.table tbody tr { border-left: 4px solid transparent; transition: filter .15s ease; }
@@ -330,7 +330,7 @@
   <script>
       $(function() {
           $("#example1").DataTable({
-              "responsive": true,
+              "responsive": false,
               "lengthChange": false,
               "autoWidth": false,
               "buttons": ["excel", "pdf", "print"]
