@@ -13,6 +13,89 @@ use Illuminate\Support\Facades\Crypt;
 
 class LeadsController extends Controller
 {
+    const TEMPERATURE_LABELS = [
+        'hot'  => 'Hot',
+        'warm' => 'Warm',
+        'cold' => 'Cold',
+        'dead' => 'Dead',
+    ];
+
+    const TEMPERATURE_BGCOLORS = [
+        'hot'  => 'red',
+        'warm' => 'orange',
+        'cold' => 'aqua',
+        'dead' => 'gray',
+    ];
+
+    public function allLeads(Request $request)
+    {
+        try {
+            $seo = [
+                'title'         =>  "All Leads",
+                'favicon'       =>  url(env('APP_FAVICON')),
+                'logo'          =>  url(env('APP_LOGO')),
+                'keyword'       => "All Leads",
+                'description'   => "All Leads",
+                'author'        => env('COMPANYNAME'),
+            ];
+
+            $mylead = LeadMS::select('lead_id', 'lead_temperature')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->get();
+
+            $myleads = array();
+            $temperatures = array();
+            foreach ($mylead as $key) {
+                $myleads[] = $key['lead_id'];
+                $temperatures[$key['lead_id']] = $key['lead_temperature'];
+            }
+
+            $leads = Leads::select()->where('status', '1')->where('is_delete', '0')->whereIn('id', $myleads);
+            if ((!empty($request->date_from)) and (!empty($request->date_to))) {
+                $leads = $leads->whereBetween('created_at', [$request->date_from . ' 00:01:01', $request->date_to . ' 23:59:59']);
+            }
+            $leads = $leads->orderby('id', 'desc')->get();
+
+            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Server Error");
+        }
+    }
+
+    public function markTemperature(Request $request)
+    {
+        $request->validate([
+            'lead_id'     => 'required',
+            'temperature' => 'required|in:hot,warm,cold,dead',
+        ]);
+
+        try {
+            $update = LeadMS::where('lead_id', $request->lead_id)->where('user_id', Auth::user()->id)->where('is_delete', '0')->where('status', '1')->update([
+                'lead_temperature' => $request->temperature,
+            ]);
+
+            if (!$update) {
+                return redirect()->back()->with('error', "Server Error");
+            }
+
+            $label = self::TEMPERATURE_LABELS[$request->temperature];
+
+            LeadStatus::create([
+                'business_id' => Auth::user()->business_id,
+                'date'        => date('Y-m-d'),
+                'lead_id'     => $request->lead_id,
+                'user_id'     => Auth::user()->id,
+                'icon'        => 'fa-thermometer-half',
+                'bgcolor'     => self::TEMPERATURE_BGCOLORS[$request->temperature],
+                'remarks'     => "Lead Marked <b>$label</b> by " . Auth::user()->name,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            return redirect()->back()->with('success', "Lead Marked As $label");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Server Error");
+        }
+    }
+
     public function transferred(Request $request)
     {
         $seo = [

@@ -46,6 +46,12 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
+            <a href="{{url('/tele-caller/all-leads')}}" class="nav-link">
+              <i class="fa fa-circle-o nav-icon"></i>
+              <p>All Leads</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{url('/tele-caller/transferred-list')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
               <p>Transferred Leads</p>
