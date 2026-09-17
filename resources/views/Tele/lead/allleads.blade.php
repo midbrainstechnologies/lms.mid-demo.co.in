@@ -282,11 +282,11 @@
                                                     <input type="hidden" name="lead_id" value="{{ $list['id'] }}">
                                                     <select name="temperature" class="form-control form-control-sm status-select status-{{ $temperature }}" onchange="this.form.submit()">
                                                         <option value="" disabled {{ $temperature == 'new' ? 'selected' : '' }}>Not Set</option>
-                                                        <option value="hot" {{ $temperature == 'hot' ? 'selected' : '' }}>Hot</option>
-                                                        <option value="warm" {{ $temperature == 'warm' ? 'selected' : '' }}>Warm</option>
-                                                        <option value="cold" {{ $temperature == 'cold' ? 'selected' : '' }}>Cold</option>
-                                                        <option value="dead" {{ $temperature == 'dead' ? 'selected' : '' }}>Dead</option>
-                                                        <option value="closed" {{ $temperature == 'closed' ? 'selected' : '' }}>Closed</option>
+                                                        <option value="hot" style="color:#7f1d1d;background-color:#fca5a5" {{ $temperature == 'hot' ? 'selected' : '' }}>Hot</option>
+                                                        <option value="warm" style="color:#78350f;background-color:#fcd34d" {{ $temperature == 'warm' ? 'selected' : '' }}>Warm</option>
+                                                        <option value="cold" style="color:#1e3a8a;background-color:#93c5fd" {{ $temperature == 'cold' ? 'selected' : '' }}>Cold</option>
+                                                        <option value="dead" style="color:#1f2937;background-color:#d1d5db" {{ $temperature == 'dead' ? 'selected' : '' }}>Dead</option>
+                                                        <option value="closed" style="color:#064e3b;background-color:#6ee7b7" {{ $temperature == 'closed' ? 'selected' : '' }}>Closed</option>
                                                     </select>
                                                 </form>
                                             </td>
