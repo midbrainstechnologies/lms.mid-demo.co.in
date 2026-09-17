@@ -86,6 +86,12 @@
         }
         .followup-note.empty { color: #b0b4bb; font-style: italic; }
 
+        .callback-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: #fffbeb; color: #92400e; font-weight: 600; font-size: 12px;
+            padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+        }
+
         .status-select {
             border-radius: 999px !important; font-weight: 700; font-size: 12px;
             padding: 4px 10px; min-width: 118px; background-color: #fff !important;
@@ -217,6 +223,7 @@
                                         <th>Company Name</th>
                                         <th>Contact</th>
                                         <th>Date</th>
+                                        <th>Next Callback</th>
                                         <th>Follow-up 1</th>
                                         <th>Follow-up 2</th>
                                         <th>Follow-up 3</th>
@@ -240,6 +247,13 @@
                                                 <div class="lead-contact"><i class="fa fa-envelope-o"></i> <?= $list['email'] ?></div>
                                             </td>
                                             <td><?= date('M d,Y', strtotime($list['created_at'])) ?></td>
+                                            <td>
+                                                @if (!empty($callbackDates[$list['id']]))
+                                                    <span class="callback-badge"><i class="fa fa-clock-o"></i> {{ date('M d, Y', strtotime($callbackDates[$list['id']])) }}</span>
+                                                @else
+                                                    <span class="followup-note empty">Not scheduled</span>
+                                                @endif
+                                            </td>
                                             <?php $leadfollowups = $followups[$list['id']] ?? []; ?>
                                             <td>
                                                 @if (isset($leadfollowups[0]))

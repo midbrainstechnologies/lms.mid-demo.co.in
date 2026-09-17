@@ -166,6 +166,17 @@
                                     </p>
 
                                     <hr>
+                                    <strong><i class="fa fa-bell mr-1"></i> Next Callback</strong>
+
+                                    <p class="text-muted">
+                                        @if (!empty($callback))
+                                            <span class="badge badge-warning">{{ date('M d, Y', strtotime($callback['next_date'])) }}</span>
+                                        @else
+                                            Not Scheduled
+                                        @endif
+                                    </p>
+
+                                    <hr>
                                     <strong><i class="fa fa-clock-o mr-1"></i> Created On</strong>
 
                                     <p class="text-muted">

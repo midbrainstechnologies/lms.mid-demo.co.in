@@ -43,10 +43,12 @@ class LeadsController extends Controller
                 }));
             }
 
+            // Next scheduled callback date per lead (active reminders only).
+            $callbackDates = LeadRemainder::where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->pluck('next_date', 'lead_id')->toArray();
+
             // Callback filter: leads with an active (not deleted) scheduled follow-up reminder.
             if ($request->callback == 'yes') {
-                $callbackLeadIds = LeadRemainder::select('lead_id')->where('status', '1')->where('is_delete', '0')->where('user_id', Auth::user()->id)->pluck('lead_id')->toArray();
-                $myleads = array_intersect($myleads, $callbackLeadIds);
+                $myleads = array_intersect($myleads, array_keys($callbackDates));
             }
 
             $leads = Leads::select()->where('status', '1')->where('is_delete', '0')->whereIn('id', $myleads);
@@ -68,7 +70,7 @@ class LeadsController extends Controller
                 }
             }
 
-            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures', 'followups'));
+            return view('Tele.lead.allleads', compact('seo', 'leads', 'temperatures', 'followups', 'callbackDates'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Server Error");
         }
@@ -221,7 +223,9 @@ class LeadsController extends Controller
 
             $remarks = LeadStatus::select()->where('status', '1')->where('is_delete', '0')->where('lead_id', Crypt::decrypt($id))->orderBy('date', 'desc')->get();
 
-            return view('Tele.lead.view', compact('seo', 'leads', 'remarks'));
+            $callback = LeadRemainder::where('lead_id', Crypt::decrypt($id))->where('user_id', Auth::user()->id)->where('status', '1')->where('is_delete', '0')->orderBy('next_date', 'desc')->first();
+
+            return view('Tele.lead.view', compact('seo', 'leads', 'remarks', 'callback'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Server Error");
         }
